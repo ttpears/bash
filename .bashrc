@@ -64,7 +64,7 @@ fi
 # Customization
 
 EDITOR=vim
-BINPATH="/home/ttpearso/bin"
+BINPATH="/home/`whoami`/bin"
 PATH="$PATH:$BINPATH"
 
 # MySQL prompt so it shows hostname
