@@ -188,3 +188,31 @@ function ioload {
            ;;
    esac
 }
+
+# serve this directory via http
+function pyserve {
+   PORT=""
+   if [ ! -z $1 ]; then
+      PORT=$1
+   fi
+   python3 -m http.server $PORT
+}
+
+function arch_container {
+   DATE=$(date +%Y-%m-%d_%H_%M)
+   VMPATH="/root/vm_$DATE"
+   PACKS=$1
+   if [ ! -d $VMPATH ]; then
+      $(sudo mkdir -p $VMPATH)
+      RESULT=$(sudo pacstrap -c -d $VMPATH base --ignore linux $PACKS)
+      BOLD=$(tput bold)
+      NORM=$(tput sgr0)
+      echo "Start container using:"
+      echo "${BOLD}sudo systemd-nspawn -b -D $VMPATH${NORM}"
+      echo
+      echo "Use '${BOLD}sudo machinectl${NORM}' command to control containers."
+      echo "View logs ${BOLD}outside${NORM} the container using: ${BOLD}sudo journalctl -M vm_$DATE${NORM}"
+   else
+      echo "Directory exists: $VMPATH"
+   fi
+}
