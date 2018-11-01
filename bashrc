@@ -29,22 +29,14 @@ debian_chroot=$(cat /etc/debian_chroot)
    ;;
    esac
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-   . ~/.bash_aliases
+# Load bash credentials
+if [ -f ~/.bash_creds ]; then
+   source ~/.bash_creds
 fi
 
-if [ -f ~/.bash_functions ];then
-   . ~/.bash_functions
-fi
-
-if [ -f ~/.bash_work ];then
-   . ~/.bash_work
-fi
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f ~/.bash_functions ]] && . ~/.bash_functions
+[[ -f ~/.bash_work ]] && . ~/.bash_work
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
